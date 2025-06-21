@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Shazothief – Search Song</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fdf0d5 0%, #f9c5bd 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #6e1e29;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+    form {
+      background: #fff;
+      display: inline-block;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    input[type="file"] {
+      padding: 14px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #d95550;
+      color: white;
+      padding: 14px 28px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 5px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #c03f3a;
+    }
+    .msg {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #3d0000;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      z-index: 1000;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: #6e1e29;
+    }
+    .modal p {
+      font-size: 18px;
+      margin: 15px 0 25px;
+    }
+    .modal button {
+      background-color: #d95550;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 12px 20px;
+      margin: 5px;
+    }
+    .modal button:hover {
+      background-color: #bb3b37;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 Shazothief: Search song via voice</h1>
+
+  <form method="post" action="{{ url_for('user_search_song') }}" enctype="multipart/form-data">
+    <input type="file" name="query_clip" accept=".wav, .mp3" required><br>
+    <button type="submit">Search</button>
+  </form>
+
+  <div class="msg">You can upload files with extensions .wav or .mp3</div>
+
+  {% if session.popup_song %}
+  <div id="popup-modal" class="modal">
+    <h2>🎵 Song is found!</h2>
+    <p><strong>{{ session.popup_song.title }}</strong><br>Singer: {{ session.popup_song.artist }}</p>
+    <button onclick="window.location.href='{{ url_for('play_song', song_id=session.popup_song.id, autoplay=1) }}'">▶️ Play or return to the homepage</button>
+    <button onclick="window.location.href='{{ url_for('user_home') }}'">🔙 Return to the homepage</button>
+  </div>
+  <script>
+    window.onload = () => {
+      document.getElementById("popup-modal").style.display = "block";
+    };
+  </script>
+  {% set _ = session.pop('popup_song') %}
+  {% elif session.search_result == 'not_found' %}
+  <div id="popup-modal" class="modal">
+    <h2>❌ No matching</h2>
+    <p>Unfortunately there is no any matching song.</p>
+    <button onclick="window.location.href='{{ url_for('user_search_song') }}'">🔄 Try again.</button>
+    <button onclick="window.location.href='{{ url_for('user_home') }}'">🏠 Return to the homepage</button>
+  </div>
+  <script>
+    window.onload = () => {
+      document.getElementById("popup-modal").style.display = "block";
+    };
+  </script>
+  {% set _ = session.pop('search_result') %}
+  {% endif %}
+</body>
+</html>

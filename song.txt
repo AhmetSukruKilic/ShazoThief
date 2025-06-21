@@ -1,0 +1,138 @@
+Duman  ;  Gönül İster  ;  Rock  ; 256 ;  Darmaduman
+Duman  ;  Öyle Dertli  ;  Rock  ; 300 ;  Darmaduman
+Duman  ;  Kolay Değildir  ;  Rock  ; 311 ;  Darmaduman
+Duman  ;  Haykırdım Ben  ;  Rock  ; 298 ;  Kufi
+Duman  ;  Kufi  ;  Rock  ; 265 ;  Kufi
+Yaşar  ;  Bir Tanem  ;  Pop  ; 202 ;  Esirinim
+Yaşar  ;  Kumralım  ;  Pop  ; 211 ;  Esirinim
+Ayna  ;  Severek Ayrılanlar  ;  Rock  ; 297 ;  Şarkılar... Türküler
+Ayna  ;  Ceylan  ;  Rock  ; 270 ;  Dön Bak Ayna'ya
+Ayna  ;  Yeniden de Sevebiliriz... Akdeniz  ;  Rock  ; 212 ;  Şarkılar... Türküler
+Duman  ;  Köpekler ; Rock ; 268 ; Darmaduman
+Duman  ;  Yürek ; Rock ; 284 ; Darmaduman
+Duman  ;  Eyvallah ; Rock ; 290 ; Darmaduman
+Duman  ;  Seviyorsan İnanıyorsan ; Rock ; 252 ; Darmaduman
+Duman  ;  İçimde Bir Bahar ; Rock ; 275 ; Kufi
+Duman  ;  Teessüf Ederim ; Rock ; 293 ; Kufi
+Yaşar  ;  Gel Benimle ; Pop ; 263 ; Divane
+Yaşar  ;  Divane ; Pop ; 238 ; Divane
+Erol Evgin  ;  Deli Divane ; Pop ; 192 ; Tüm Bir Yaşam
+Erol Evgin  ;  İçimdeki Fırtına ; Pop ; 207 ;  İşte Öyle Bir Şey
+Erol Evgin  ;  Ah Şu Deli Gönlüm ; Pop ; 177 ; 84
+Erol Evgin  ;  İşte Öyle Bir Şey ; Pop ; 181 ;  İşte Öyle Bir Şey
+Erol Evgin  ;  Sevdan Olmasa ; Pop ; 253 ;  İşte Öyle Bir Şey
+Erol Evgin  ;  Bir de Bana Sor ; Pop ; 194 ; İşte Öyle Bir Şey
+Erol Evgin  ;  Söyle Canım ; Pop ; 244 ; İşte Öyle Bir Şey
+Scorpions  ;  Rock You Like A Hurricane ; Rock ; 253 ; Love at First Sting
+Scorpions  ;  Wind Of Change ; Rock ; 283 ; Crazy World
+Scorpions  ; Still Loving You ; Rock ; 404 ; Love at First Sting
+Scorpions  ;  Send Me An Angel ; Rock ; 269 ; Crazy World
+Queen  ; Radio Ga Ga ; Rock ; 353 ; The Works
+Queen  ; The Show Must Go On ; Rock ; 263 ; Innuendo
+Queen  ; I Want It All ; Rock ; 252 ; The Miracle
+Queen  ; We Are The Champions ; Rock ; 190 ; News of the World
+Queen  ; We Will Rock You ; Rock ; 135 ; News of the World
+Queen  ; Bohemian Rhapsody ; Rock ; 360 ; A Night at the Opera
+Queen  ; Killer Queen ; Rock ; 188 ; Sheer Heart Attack
+Kiss ; I Was Made For Lovin' You ; Rock ; 238 ; Dynasty
+Guns N' Roses ; This I Love ; Rock ; 334 ; Chinese Democracy
+Tarkan ; Adımı Kalbine Yaz ; Pop ; 312 ; Adımı Kalbine Yaz
+Tarkan ; Öp ; Pop ; 270 ; Adımı Kalbine Yaz
+Tarkan ; Acımayacak ; Pop ; 269 ; Adımı Kalbine Yaz
+Tarkan ; Dudu ; Pop ; 264 ; Dudu
+Tarkan ; Gülümse Kaderine ; Pop ; 230 ; Dudu
+Tarkan ; Kuzu Kuzu ; Pop ; 234 ; 
+Ceza ; Ben Ağlamazken ; Rap ; 243 ; Rapstar
+Ceza ; Holocaust ; Rap ; 208 ; Rapstar
+Ceza ; Yerli Plaka ; Rap ; 275 ; Yerli Plaka
+Ceza ; Fark Var ; Rap ; 256 ; Yerli Plaka
+Sagopa Kajmer ; Baytar ; Rap ; 273 ; Kalp Hastası
+Sagopa Kajmer ; Meftun ; Rap ; 274 ; Kalp Hastası
+Sagopa Kajmer ; Sabah Fabrikam ; Rap ; 175 ; Kalp Hastası
+Sagopa Kajmer ; 366. Gün ; Rap ; 237 ; Ahmak Islatan
+Sezen Aksu ; Firuze ; Pop ; 305 ; Firuze
+Sezen Aksu ; İkinci Bahar ; Pop ; 164 ; Firuze
+Sezen Aksu ; Bir Zamanlar Deli Gönlüm ; Pop ; 261 ; Firuze
+Sezen Aksu ; Ne Kavgam Bitti Ne Sevdam ; Pop ; 209 ; Gülümse
+Sezen Aksu ; Her Şeyi Yak ; Pop ; 315 ; Gülümse
+Sezen Aksu ; Unuttun Mu Beni ; Pop ; 252 ; Öptüm
+Sezen Aksu ; Biliyorsun ; Pop ; 317 ; Ağlamak Güzeldir
+Sezen Aksu ; Kaçın Kurası ; Pop ; 226 ; Düş Bahçeleri
+Sezen Aksu ; Seni Yerler ; Pop ; 247 ; Düş Bahçeleri
+Sezen Aksu ; Rakkas ; Pop ; 224 ; Işık Doğudan Yükselir
+Sezen Aksu ; Manifesto ; Pop ; 211 ; Biraz Pop Biraz Sezen
+Cem Karaca ; Ceviz Ağacı ; Rock ; 349 ; Merhaba Gençler
+Cem Karaca ; Tamirci Çırağı ; Rock ; 297 ; 
+Cem Karaca ; Islak Islak ; Rock ; 274 ; 
+Cem Karaca ; Bu Son Olsun ; Rock ; 169 ; 
+Cem Karaca ; Ay Karanlık ; Rock ; 472 ; 
+Cem Karaca ; Kara Sevda ; Rock ; 272 ; 
+Barış Manço ; Aynalı Kemer ; Rock ; 186 ; Yeni Bir Gün
+Barış Manço ; Gönül Ferman Dinlemiyor ; Rock ; 290 ; Barış Manço Forever
+Barış Manço ; Yaz Dostum ; Rock ; 259 ; 
+Barış Manço ; Alla Beni Pulla Beni ; Rock ; 243 ; Sözüm Meclisten Dışarı
+Barış Manço ; Gülpembe ; Rock ; 312 ; Sözüm Meclisten Dışarı
+Erkin Koray ; Sevince ; Rock ; 319 ; -
+Erkin Koray ; Seni Her Gördüğümde ; Rock ; 199 ; Erkin Koray
+Erkin Koray ; Öyle Bir Geçer Zaman Ki ; Rock ; 319 ; -
+Erkin Koray ; Feshupanallah ; Rock ; 215 ; Feshupanallah
+Erkin Koray ; Şaşkın ; Rock ; 261 ; Şaşkın
+Mabel Matiz ; Öyle Kolaysa ; Pop ; 280 ; Maya
+Mabel Matiz ; Sarışın ; Pop ; 302 ; Gök Nerede
+Mabel Matiz ; Ahu ; Pop ; 226 ; Gök Nerede
+Mabel Matiz ; Gel ; Pop ; 282 ; Gök Nerede
+Mabel Matiz ; Sultan Süleyman ; Pop ; 281 ; Aysel'in
+Mabel Matiz ; Zor Değil ; Pop ; 286 ; Yaşım Çocuk
+Mabel Matiz ; Ya Bu İşler Ne ; Pop ; 236 ; Maya
+Mabel Matiz ; Aşk Yok Olmaktır ; Pop ; 224 ; Yaşım Çocuk
+Sertab Erener ; Olsun ; Pop ; 286 ; Kırık Kalpler Albümü
+Sertab Erener ; Yanarım ; Pop ; 194 ; Sertab Erener
+Sertab Erener ; İstanbul ; Pop ; 221 ; Rengârenk
+Sertab Erener ; Kendime Yeni Bir Ben Lazım ; Pop ; 188 ; Sertab Erener
+Sertab Erener ; Farzet ; Pop ; 244 ; Ben Yaşarım
+Haluk Levent ; Yollarda Bulurum Seni ; Rock ; 269 ; 
+Haluk Levent ; Elfida ; Rock ; 334 ; Akşam Üstü
+Haluk Levent ; Aşkın Mapushane ; Rock ; 301 ; 
+Haluk Levent ; Sevenler Ağlarmış ; Rock ; 230 ; Bir Gece Vakti
+Haluk Levent ; Akdeniz Akşamları ; Rock ; 250 ; 
+Şebnem Ferah ; Mayın Tarlası ; Rock ; 320 ; Kelimeler Yetse…
+Şebnem Ferah ; Gözlerimin Etrafındaki Çizgiler ; Rock ; 381 ; Kelimeler Yetse…
+Şebnem Ferah ; Yağmurlar ; Rock ; 292 ; Kadın
+Şebnem Ferah ; Çakıl Taşları ; Rock ; 308 ; Can Kırıkları
+Şebnem Ferah ; Ben Şarkımı Söylerken ; Rock ; 257 ; Kelimeler Yetse…
+Şebnem Ferah ; Bu Aşk Sana Fazla ; Rock ; 261 ; Kadın
+Şebnem Ferah ; Sil Baştan ; Rock ; 312 ; Perdeler
+Mor ve Ötesi ; Deli ; Rock ; 183 ; Başıbozuk
+Mor ve Ötesi ; Cambaz ; Rock ; 231 ; Dünya Yalan Söylüyor
+Mor ve Ötesi ; Oyunbozan ; Rock ; 277 ; Güneşi Beklerken
+Mor ve Ötesi ; Sevda Çiçeği ; Rock ; 240 ; Dünya Yalan Söylüyor
+Mor ve Ötesi ; Bir Derdim Var ; Rock ; 204 ; Dünya Yalan Söylüyor
+Mor ve Ötesi ; Daha Mutlu Olamam ; Rock ; 220 ; Gül Kendine
+Mor ve Ötesi ; Re ; Rock ; 219 ; Dünya Yalan Söylüyor
+Serdar Ortaç ; Dansöz ; Pop ; 316 ; Mesafe
+Serdar Ortaç ; Poşet ; Pop ; 317 ; Kara Kedi
+Serdar Ortaç ; Mikrop ; Pop ; 306 ; Kara Kedi
+Serdar Ortaç ; Mesafe ; Pop ; 302 ; Mesafe
+Serdar Ortaç ; Karabiberim ; Pop ; 228 ; Aşk İçin
+Serdar Ortaç ; Gıybet ; Pop ; 192 ; Gıybet
+Serdar Ortaç ; İşim Olmaz ; Pop ; 291 ; Kara Kedi
+Serdar Ortaç ; Gülün Rengi ; Pop ; 264 ; Kara Kedi
+Müslüm Gürses ; Yıllar Utansın ; Arabesk ; 407 ; Mahsun Kul
+Müslüm Gürses ; Vazgeçtim ; Arabesk ; 255 ; Sandık
+Müslüm Gürses ; Unutamadım ; Arabesk ; 270 ; Küskünüm
+Müslüm Gürses ; Tutamıyorum Zamanı ; Arabesk ; 268 ; Sandık
+Müslüm Gürses ; Sigara ; Arabesk ; 311 ; Yalan Dünya
+Müslüm Gürses ; Gel Bahtımın Kar Beyazı ; Arabesk ; 292 ; Dünya Yalan
+Müslüm Gürses ; Hangimiz Sevmedik ; Arabesk ; 235 ; Senden Vazgeçmem
+Ferdi Özbeğen ; Mutlu Ol Yeter ; Arabesk ; 279 ; Bir Sır Gibi
+Ferdi Özbeğen ; Dönsen Bile ; Arabesk ; 202 ; 
+Ferdi Özbeğen ; Dilek Taşı ; Arabesk ; 223 ; 
+Ferdi Özbeğen ; Dert Bende ; Arabesk ; 227 ; Piyanist
+Ferdi Özbeğen ; Kaç Yıl Geçti Aradan ; Arabesk ; 314 ; Teşekkürler
+Ferdi Tayfur ; Bana Sor ; Arabesk ; 362 ; Hoşçakal
+Ferdi Tayfur ; Hatıran Yeter ; Arabesk ; 287 ; Hoşçakal
+Ferdi Tayfur ; Huzurum Kalmadı ; Arabesk ; 234 ; Huzurum Kalmadı
+Ferdi Tayfur ; Sabahçı Kahvesi ; Arabesk ; 280 ; Prangalar
+Arap Şükrü ; Bu Şehir Beni Boğuyor ; Arabesk ; 235 ; 
+Kayahan ; Odalarda Işıksızım ; Arabesk ; 350 ; Odalarda Işıksızım
+Kayahan ; Gönül Sayfam ; Arabesk ; 256 ; Gönül Sayfam

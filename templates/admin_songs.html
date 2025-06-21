@@ -1,0 +1,38 @@
+<!-- admin_songs.html -->
+{% extends "base.html" %}
+
+{% block title %}Manage Songs – ShazoThief{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">🗑️ Delete Songs</h1>
+  <p class="text-muted text-center">Select a song and hit delete. This removes the song from <em>songs</em>, <em>liked_songs</em>, <em>fingerprints</em>, playlists and listening history.</p>
+
+  <table class="table table-striped table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th style="width:120px;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in songs %}
+        <tr>
+          <td>{{ s.song_id }}</td>
+          <td>{{ s.title }}</td>
+          <td>{{ s.genre }}</td>
+          <td>
+            <form method="POST" action="{{ url_for('delete_song', song_id=s.song_id) }}" onsubmit="return confirm('Delete \"{{ s.title }}\"?');">
+              <button type="submit" class="btn btn-sm btn-danger w-100">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4" class="text-center">No songs found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

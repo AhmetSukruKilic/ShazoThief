@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel – Shazothief{% endblock %}
+
+{% block content %}
+  <style>
+    .admin-container {
+      padding: 40px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg,#fdf0d5 0%,#f9c5bd 100%);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .admin-container h1 {
+      color: #6e1e29;
+    }
+
+    .genre-section {
+      margin-top: 60px;
+    }
+
+    .genre-grid {
+      margin-top: 25px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      justify-items: center;
+    }
+
+    .genre-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 240px;
+    }
+
+    .genre-card h3 {
+      margin: 0 0 10px;
+      color: #6e1e29;
+    }
+
+    .progress-bar {
+      height: 10px;
+      border-radius: 6px;
+      background: #eee;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar span {
+      display: block;
+      height: 100%;
+      background: #d95550;
+    }
+
+    .admin-buttons {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .admin-buttons a {
+      padding: 20px 40px;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      color: white;
+      transition: transform 0.2s ease;
+    }
+
+    .upload-btn { background: #d95550; }
+    .search-btn { background: #6e1e29; }
+
+    .admin-buttons a:hover {
+      transform: scale(1.05);
+    }
+  </style>
+
+  <div class="admin-container">
+    <h1>🔧 Admin Panel – Shazothief</h1>
+    <p>You cna search songs via voice and manage them.</p>
+
+    <div class="genre-section">
+      <h2>🎵 Library by Genre</h2>
+      {% if genres %}
+        <div class="genre-grid">
+          {% for genre, count in genres %}
+            {% set pct = (count / total_songs * 100) | round(1) %}
+            <div class="genre-card">
+              <h3>{{ genre }}</h3>
+              <p>{{ count }} song{{ 's' if count != 1 else '' }} ({{ pct }}%)</p>
+              <div class="progress-bar">
+                <span style="width:{{ pct }}%;"></span>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No songs in the database yet.</p>
+      {% endif %}
+    </div>
+
+    <div class="admin-buttons">
+      <a href="{{ url_for('add_song') }}" class="upload-btn">🎶 Upload new song</a>
+      <a href="{{ url_for('search_song') }}" class="search-btn">🔍 Search song via voice</a>
+    </div>
+  </div>
+{% endblock %}

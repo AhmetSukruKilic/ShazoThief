@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blend Kullanıcıları</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      width:100%; height:100%; margin:0; padding:0; overflow:hidden;
+      font-family:'Segoe UI',sans-serif;
+      background:linear-gradient(135deg,#fdf0d5 0%,#f9c5bd 100%);
+      display:flex; flex-direction:column;
+    }
+    .menu {
+      background:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      padding:20px; display:flex; justify-content:center; gap:20px; flex-shrink:0;
+    }
+    .menu button {
+      background:#fff; color:#b23a48; border:none; border-radius:12px;
+      padding:10px 20px; font-weight:bold; cursor:pointer;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:transform 0.2s ease;
+    }
+    .menu button:hover { transform:scale(1.05); background:#ffe9e0; }
+    .content {
+      flex:1; width:100%; padding:30px 40px; overflow-y:auto; overflow-x:hidden;
+    }
+    h1 { color:#6e1e29; margin-bottom:20px; }
+    .user-list {
+      list-style:none; padding:0;
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px;
+    }
+    .user-list li {
+      background:#fff; border-radius:16px; padding:16px; text-align:center;
+      font-weight:bold; color:#3d0000; box-shadow:0 6px 20px rgba(0,0,0,0.1);
+      display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+    }
+    .user-list li button {
+      background:#d95550; color:white; border:none; border-radius:12px;
+      padding:8px 16px; cursor:pointer; font-weight:bold; transition:transform 0.2s ease; margin:4px;
+    }
+    .user-list li button:hover {
+      transform:scale(1.05); background:#b23a48;
+    }
+    #detailsModal {
+      display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      background:white; padding:20px; border-radius:16px; box-shadow:0 6px 30px rgba(0,0,0,0.2);
+      z-index:9999; max-width:500px;
+    }
+    #detailsModal ul {
+      list-style:none; padding-left:0;
+    }
+    #detailsModal button {
+      font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <button onclick="location.href='{{ url_for('show_create_playlist') }}'">Create Playlist</button>
+    <button onclick="location.href='{{ url_for('blend_users') }}'">Blend</button>
+    <button onclick="location.href='{{ url_for('user_home') }}'">Liked Songs</button>
+    <button onclick="location.href='{{ url_for('index') }}'">Logout</button>
+  </div>
+
+  <div class="content">
+    <h1>Listed Users</h1>
+    <ul class="user-list">
+      {% for user in users %}
+        <li>
+          <span>{{ user.username }}</span>
+          <button type="button" onclick="showDetails({{ user.user_id }}, '{{ user.username }}')">Show Details</button>
+        </li>
+      {% else %}
+        <li style="grid-column:1/-1;">Registered user cannot be found.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Modal -->
+  <div id="detailsModal">
+    <h3 id="modalUsername" style="margin-top:0;"></h3>
+    <ul id="modalSongs"></ul>
+    <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end;">
+      <button onclick="confirmBlend()" style="background:#d95550; color:white; border:none; padding:10px 20px; border-radius:12px;">Blend</button>
+      <button onclick="closeModal()" style="background:#ccc; border:none; padding:10px 20px; border-radius:12px;">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    let selectedUserId = null;
+
+    function showDetails(userId, username) {
+      selectedUserId = userId;
+      document.getElementById('modalUsername').textContent = `Top songs of ${username}`;
+      const list = document.getElementById('modalSongs');
+      list.innerHTML = '<li>Loading...</li>';
+
+        fetch(`/api/user_engaged_songs?user_id=${userId}`)
+        .then(r => r.json())
+        .then(data => {
+          list.innerHTML = '';
+          if (data.length === 0) {
+            list.innerHTML = '<li>No liked songs found.</li>';
+          } else {
+            for (const row of data) {
+              const li = document.createElement('li');
+              li.textContent = `${row.title} – ${row.artist_name}`;
+              list.appendChild(li);
+            }
+          }
+          document.getElementById('detailsModal').style.display = 'block';
+        });
+    }
+
+    function closeModal() {
+      document.getElementById('detailsModal').style.display = 'none';
+      selectedUserId = null;
+    }
+
+    function confirmBlend() {
+      if (!selectedUserId) return;
+      fetch(`/api/blend/${selectedUserId}`, {
+        method: 'POST',
+        credentials: 'same-origin'
+      })
+      .then(r => {
+        if (r.ok) {
+          alert('Blend created!');
+          window.location.href = '/user';
+        } else {
+          r.text().then(msg => alert('ERROR: ' + msg));
+        }
+      });
+    }
+  </script>
+</body>
+</html>

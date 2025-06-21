@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Register Song – ShazoThief{% endblock %}
+
+{% block content %}
+  <div class="bg-white p-5 rounded shadow text-center" style="max-width: 700px; margin: auto;">
+    <h2 class="mb-4 text-dark">🎶 Register a New Song</h2>
+    <form method="POST" enctype="multipart/form-data" class="row g-3 text-start">
+      <div class="col-md-6">
+        <label for="title" class="form-label">Song Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="e.g. Drumloop" required />
+      </div>
+      <div class="col-md-6">
+        <label for="artist" class="form-label">Artist Name</label>
+        <input type="text" class="form-control" id="artist" name="artist" placeholder="e.g. Unknown Artist" required />
+      </div>
+
+      <div class="col-md-6">
+        <label for="genre" class="form-label">Genre</label>
+        <input type="text" class="form-control" id="genre" name="genre" placeholder="e.g. Pop" />
+      </div>
+
+      <div class="col-12">
+        <label for="album" class="form-label">Album Title (Optional)</label>
+        <input type="text" class="form-control" id="album" name="album" placeholder="e.g. Greatest Hits" />
+      </div>
+
+      <div class="col-12">
+        <label for="audio_file" class="form-label">Audio File (WAV or MP3)</label>
+        <input class="form-control" type="file" id="audio_file" name="audio_file" accept=".wav, .mp3" required />
+      </div>
+
+      <div class="col-12 d-flex justify-content-center gap-3">
+        <button type="submit" class="btn btn-primary px-4">Register Song</button>
+        <a href="{{ url_for('admin_home') }}" class="btn btn-secondary px-4">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

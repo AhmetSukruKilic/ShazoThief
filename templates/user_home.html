@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>User</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden;
+      font-family:'Segoe UI',sans-serif;
+      background:linear-gradient(135deg,#fdf0d5 0%,#f9c5bd 100%);
+      display:flex; flex-direction:column;
+    }
+    .menu { background:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.1); padding:20px; display:flex; justify-content:center; gap:20px; flex-shrink:0; }
+    .menu button { background:#fff; color:#b23a48; border:none; border-radius:12px; padding:10px 20px; font-weight:bold; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:transform 0.2s ease; }
+    .menu button:hover { transform:scale(1.05); background:#ffe9e0; }
+    .content { flex:1; width:100%; padding:30px 40px; overflow-y:auto; overflow-x:hidden; }
+    h3 { color:#6e1e29; margin:0 0 10px; }
+    .carousel-container {
+      width:100%;
+      white-space:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      background:#fff;
+      padding:20px;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+      margin-bottom:30px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .carousel-container::-webkit-scrollbar { display: none; }
+    .song-box, .playlist-box { display:inline-block; width:180px; height:180px; margin-right:15px; border-radius:16px; text-align:center; line-height:180px; font-weight:bold; cursor:pointer; transition:transform 0.2s ease; }
+    .song-box { background:#ffe9e0; color:#3d0000; }
+    .song-box:hover { transform:scale(1.05); background:#f6c0a9; }
+    .playlist-box { background: #b69e62; color: #f1cd75; }
+    .playlist-box:hover { transform:scale(1.05); background:#a0cef0; }
+    .flex-row { display:flex; flex-wrap:nowrap; gap:20px; margin-bottom:30px; }
+    .column { flex:1; min-width:0; display:flex; flex-direction:column; }
+    .shazothief-btn { background:#d95550; color:white; padding:15px 30px; font-size:18px; border:none; border-radius:12px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+    .modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:199; }
+    .modal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:24px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.2); z-index:200; width:400px; max-width:90%; }
+    .modal h2 { margin-top:0; color:#6e1e29; display:flex; justify-content:space-between; align-items:center; }
+    .modal .delete-playlist-btn { background:#b23a48; color:#fff; border:none; border-radius:8px; padding:6px 12px; cursor:pointer; }
+    .modal ul { list-style:none; padding:0; margin:16px 0; max-height:300px; overflow:auto; }
+    .modal ul li { padding:8px 12px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
+    .modal ul li:last-child { border-bottom:none; }
+    .modal button.close-btn { background:#aaa; color:white; border:none; border-radius:12px; padding:8px 16px; cursor:pointer; float:right; margin-top:16px; }
+    .modal button.play-btn, .modal button.remove-btn { border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; margin-left:8px; }
+    .modal button.play-btn { background:#3d0000; color:white; }
+    .modal button.remove-btn { background:#b23a48; color:white; }
+    .player-bar { position:fixed; bottom:0; left:0; width:100%; display:flex; align-items:center; justify-content:space-between; background:#fff4f0; padding:10px 20px; box-shadow:0 -4px 10px rgba(0,0,0,0.1); z-index:100; }
+    .player-controls { display:flex; align-items:center; gap:12px; }
+    .player-controls button { width:44px; height:44px; border:none; border-radius:50%; background:#d95550; color:#fff; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .player-title { flex:1; text-align:center; font-size:16px; color:#3d0000; font-weight:bold; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .player-progress { display:flex; align-items:center; gap:8px; max-width:300px; flex-shrink:0; }
+    .player-progress .time { font-size:14px; color:#3d0000; min-width:40px; text-align:center; }
+    .player-progress input[type=range] { -webkit-appearance:none; width:100%; height:4px; background:#ccc; border-radius:2px; cursor:pointer; }
+    .player-progress input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:12px; height:12px; background:#d95550; border-radius:50%; }
+    .expand-btn { border:none; background:none; font-size:20px; cursor:pointer; color:#b23a48; margin-left:8px; }
+    /* Toast notification */
+    .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#3d0000; color:white; padding:10px 20px; border-radius:12px; display:none; z-index:300; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <button onclick="location.href='{{ url_for('show_create_playlist') }}'">Create Playlist</button>
+    <button onclick="location.href='{{ url_for('blend_users') }}'">Blend</button>
+    <button id="liked-btn">Liked Songs</button>
+    <button onclick="location.href='{{ url_for('index') }}'">Logout</button>
+  </div>
+  <div class="content">
+    <h3>🔁 Last played songs.</h3>
+    <div class="carousel-container">
+      {% for s in recent_songs %}
+        <a href="{{ url_for('play_song', song_id=s['song_id'], autoplay=1) }}">
+          <div class="song-box">{{ s['title'] }}</div>
+        </a>
+      {% endfor %}
+    </div>
+    <div class="flex-row">
+      <div class="column">
+        <h3>🎯 For you</h3>
+        <div class="carousel-container">
+          {% for s in recommended_songs %}
+            <a href="{{ url_for('play_song', song_id=s['song_id'], autoplay=1) }}">
+              <div class="song-box">{{ s['title'] }}</div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="column">
+        <h3>📂 My Playlists</h3>
+        <div class="carousel-container">
+          {% for p in user_playlists %}
+            <div class="playlist-box" data-playlist-id="{{ p['playlist_id'] }}" data-playlist-name="{{ p['name'] }}">
+              {{ p['name'] }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-bottom:60px;">
+        <a href="{{ url_for('user_search_song') }}">
+            <button class="shazothief-btn">🎤 Shazothief</button>
+        </a>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay"></div>
+  <div class="modal" id="playlist-modal">
+    <h2 id="modal-title">
+      <span></span>
+      <button class="delete-playlist-btn" id="delete-playlist-btn" title="Playlist’i Sil">🗑️</button>
+    </h2>
+    <ul id="modal-songs-list"></ul>
+    <button class="close-btn" onclick="closeModal()">Close</button>
+  </div>
+
+  {% set current = session.current_song %}
+  {% if current %}
+    <div id="expanded-player" style="display:none; position:fixed; bottom:64px; left:50%; transform:translateX(-50%); background:#fff; padding:12px 20px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); z-index:101; color:#3d0000;">
+      Albüm: {{ current.album }} | Singer: {{ current.artist }}
+    </div>
+    <audio
+      id="audio-player"
+      src="{{ url_for('static', filename=current.path) }}"
+      {% if request.args.get('autoplay') == '1' %}autoplay{% endif %}
+    ></audio>
+    <div class="player-bar">
+      <div class="player-controls">
+        <button id="prev-btn" title="10s Rewind">⏮</button>
+        <button id="play-btn" title="Play">▶️</button>
+        <button id="pause-btn" title="Pause" style="display:none">⏸️</button>
+        <button id="next-btn" title="10s Forward">⏭</button>
+        <button id="like-btn" title="Like">💙</button>
+        <button id="unlike-btn" title="Unlike">✖️</button>
+      </div>
+      <div class="player-title" id="current-title">{{ current.title }}</div>
+      <div class="player-progress">
+        <span class="time" id="current-time">0:00</span>
+        <input type="range" id="progress" min="0" max="0" value="0">
+        <span class="time" id="duration">0:00</span>
+        <button class="expand-btn" id="expand-btn" title="Detail">⬆️</button>
+      </div>
+    </div>
+
+    <!-- Toast notification element -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let currentPlaylistId = null;
+    let currentPlaylistName = null;
+
+    // Show and hide toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+
+    // Liked songs button
+    const likedBtn = document.getElementById('liked-btn');
+    likedBtn.addEventListener('click', () => {
+      fetch('/api/liked_songs', { credentials: 'same-origin' })
+        .then(r => r.ok ? r.json() : [])
+        .then(songs => {
+          document.getElementById('modal-title').firstChild.textContent = 'Liked songs';
+          document.getElementById('delete-playlist-btn').style.display = 'none';
+          const ul = document.getElementById('modal-songs-list');
+          ul.innerHTML = '';
+          if (!songs.length) {
+            const li = document.createElement('li');
+            li.textContent = 'You have not liked any song';
+            ul.appendChild(li);
+          } else {
+            songs.forEach(s => {
+              const li = document.createElement('li');
+              const span = document.createElement('span');
+              span.textContent = `${s.title}${s.artist ? ' — ' + s.artist : ''}`;
+              const playBtn = document.createElement('button');
+              playBtn.className = 'play-btn';
+              playBtn.textContent = '▶️';
+              playBtn.onclick = () => { window.location.href = `/play/${s.song_id}?autoplay=1`; };
+              li.appendChild(span);
+              li.appendChild(playBtn);
+              ul.appendChild(li);
+            });
+          }
+          document.getElementById('modal-overlay').style.display = 'block';
+          document.getElementById('playlist-modal').style.display = 'block';
+        });
+    });
+
+    // Existing playlist boxes
+    document.querySelectorAll('.playlist-box').forEach(box => {
+      box.addEventListener('click', () => {
+        currentPlaylistId = box.dataset.playlistId;
+        currentPlaylistName = box.dataset.playlistName;
+        document.getElementById('delete-playlist-btn').style.display = 'inline-block';
+        fetch(`/api/playlists/${currentPlaylistId}/songs`, { credentials: 'same-origin' })
+          .then(r => r.ok ? r.json() : [])
+          .then(songs => openModal(currentPlaylistName, songs))
+          .catch(() => openModal(currentPlaylistName, []));
+      });
+    });
+
+    // Delete playlist
+    document.getElementById('delete-playlist-btn').addEventListener('click', () => {
+      if (confirm('This playlist is going to be deleted. Are you sure?')) {
+        fetch(`/api/playlists/${currentPlaylistId}`, { method: 'DELETE', credentials: 'same-origin' })
+          .then(r => {
+            if (r.ok) {
+              showToast('Playlist deleted!');
+              setTimeout(() => location.reload(), 1000);
+            } else {
+              showToast('Deletion failed');
+            }
+          })
+          .catch(() => showToast('Deletion failed'));
+      }
+    });
+
+    // Remove a song from playlist
+    function removeSong(songId) {
+      if (confirm('This song will be removed from the playlist. Are you sure?')) {
+        fetch(`/api/playlists/${currentPlaylistId}/songs/${songId}`, { method: 'DELETE', credentials: 'same-origin' })
+          .then(r => {
+            if (r.ok) {
+              fetch(`/api/playlists/${currentPlaylistId}/songs`, { credentials: 'same-origin' })
+                .then(r => r.ok ? r.json() : [])
+                .then(songs => {
+                  openModal(currentPlaylistName, songs);
+                  showToast('Song is removed');
+                })
+                .catch(() => openModal(currentPlaylistName, []));
+            } else {
+              showToast('Song removal failed');
+            }
+          })
+          .catch(() => showToast('Song removal failed'));
+      }
+    }
+
+    // Open modal with given songs
+    function openModal(title, songs) {
+      document.getElementById('modal-title').firstChild.textContent = title;
+      const ul = document.getElementById('modal-songs-list');
+      ul.innerHTML = '';
+      if (!Array.isArray(songs) || songs.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'There is no song in this list';
+        ul.appendChild(li);
+      } else {
+        songs.forEach(s => {
+          const li = document.createElement('li');
+          const span = document.createElement('span');
+          span.textContent = `${s.title}${s.artist ? ' — '+s.artist : ''}`;
+          const removeBtn = document.createElement('button');
+          removeBtn.className = 'remove-btn';
+          removeBtn.textContent = '✖️';
+          removeBtn.title = 'Remove the song';
+          removeBtn.onclick = () => removeSong(s.song_id);
+          const playBtn = document.createElement('button');
+          playBtn.className = 'play-btn';
+          playBtn.textContent = '▶️';
+          playBtn.onclick = () => { window.location.href = `/play/${s.song_id}?autoplay=1`; };
+          li.appendChild(span);
+          li.appendChild(removeBtn);
+          li.appendChild(playBtn);
+          ul.appendChild(li);
+        });
+      }
+      document.getElementById('modal-overlay').style.display = 'block';
+      document.getElementById('playlist-modal').style.display = 'block';
+    }
+    window.closeModal = () => {
+      document.getElementById('modal-overlay').style.display = 'none';
+      document.getElementById('playlist-modal').style.display = 'none';
+    };
+
+    // Player controls
+    const audio = document.getElementById('audio-player');
+    const playBtn = document.getElementById('play-btn');
+    const pauseBtn = document.getElementById('pause-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const progress = document.getElementById('progress');
+    const expandBtn = document.getElementById('expand-btn');
+    const expanded = document.getElementById('expanded-player');
+    const currentTitleEl = document.getElementById('current-title');
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+      progress.max = Math.floor(audio.duration);
+      durationEl.textContent = formatTime(audio.duration);
+      if (new URLSearchParams(window.location.search).get('autoplay') === '1' && audio.paused) {
+        audio.play().then(() => {
+          playBtn.style.display = 'none';
+          pauseBtn.style.display = 'inline';
+        }).catch(e => {
+          console.error('Autoplay failed:', e);
+        });
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      progress.value = Math.floor(audio.currentTime);
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+
+    progress.addEventListener('input', () => audio.currentTime = progress.value);
+    playBtn.addEventListener('click', () => audio.play());
+    pauseBtn.addEventListener('click', () => audio.pause());
+    audio.addEventListener('play', () => {
+      playBtn.style.display = 'none';
+      pauseBtn.style.display = 'inline';
+    });
+    audio.addEventListener('pause', () => {
+      playBtn.style.display = 'inline';
+      pauseBtn.style.display = 'none';
+    });
+    prevBtn.addEventListener('click', () => audio.currentTime = Math.max(0, audio.currentTime - 10));
+    nextBtn.addEventListener('click', () => audio.currentTime = Math.min(audio.duration, audio.currentTime + 10));
+
+    expandBtn.addEventListener('click', () => {
+      if (expanded.style.display === 'none') {
+        expanded.style.display = 'block';
+        expandBtn.textContent = '⬇️';
+      } else {
+        expanded.style.display = 'none';
+        expandBtn.textContent = '⬆️';
+      }
+    });
+
+    // LIKE button: replace alerts with toast
+    const likeBtn = document.getElementById('like-btn');
+    likeBtn.addEventListener('click', () => {
+      const songId = {{ current.id }};
+      fetch(`/api/like/${songId}`, {
+        method: 'POST',
+        credentials: 'same-origin'
+      })
+      .then(res => {
+        if (res.ok) {
+          showToast("Song added to the liked songs!");
+        } else if (res.status === 409) {
+          showToast("You already liked this song!");
+        } else {
+          showToast("An error occurred while adding the song to the liked songs!");
+        }
+      });
+    });
+          const unlikeBtn = document.getElementById('unlike-btn');
+unlikeBtn.addEventListener('click', () => {
+  const songId = {{ current.id }};
+  fetch(`/api/like/${songId}`, {
+    method: 'DELETE',
+    credentials: 'same-origin'
+  })
+  .then(res => {
+    if (res.ok) {
+      showToast("You removed this song from the liked songs!");
+    } else {
+      showToast("An error occurred while removing the song from the liked songs!");
+    }
+  })
+  .catch(() => showToast("An error occurred while removing the song from the liked songs!"));
+});
+  });
+</script>
+
+
+
+
+
+
+
+  {% endif %}
+</body>
+</html>

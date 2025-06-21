@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Search by Clip – ShazoThief{% endblock %}
+
+{% block content %}
+  <div class="bg-white p-5 rounded shadow text-center" style="max-width: 600px; margin: auto;">
+    <h2 class="mb-4 text-dark">🔍 Search for a Song by Audio Clip</h2>
+    <form method="POST" enctype="multipart/form-data" class="row g-3">
+      <div class="col-12">
+        <label for="query_clip" class="form-label">Upload Audio File (WAV or MP3)</label>
+        <input
+          class="form-control"
+          type="file"
+          id="query_clip"
+          name="query_clip"
+          accept=".wav, .mp3"
+          required
+        />
+      </div>
+      <div class="col-12 d-flex justify-content-center gap-3">
+        <button type="submit" class="btn btn-success px-4">Search</button>
+        <a href="{{ url_for('admin_home') }}" class="btn btn-secondary px-4">Cancel</a>
+      </div>
+    </form>
+
+    {% if session.popup_song %}
+      <div class="alert alert-success mt-4">
+        ✅ Song found: <strong>{{ session.popup_song.title }}</strong> — {{ session.popup_song.artist }}
+        <div class="mt-3">
+          <a href="{{ url_for('search_song') }}" class="btn btn-outline-success">🔄 Search Another Song</a>
+        </div>
+      </div>
+      {% set _ = session.pop('popup_song') %}
+    {% elif session.search_result == 'not_found' %}
+      <div class="alert alert-warning mt-4">
+        ❌ No matching song was found.
+        <div class="mt-3">
+          <a href="{{ url_for('search_song') }}" class="btn btn-outline-warning">🔄 Try Another</a>
+        </div>
+      </div>
+      {% set _ = session.pop('search_result') %}
+    {% endif %}
+  </div>
+{% endblock %}
