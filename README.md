@@ -1,1 +1,2 @@
 # ShazoThief
+The Shazam copy project is about creating a simple version of the Shazam app. Shazam is an app that listens to music and tells you the name of the song and the artist. In this project, the goal is to build a system that can record a short part of a song, compare it to a database of songs, and find a match. It uses sound fingerprinting, which means turning audio into a unique code, to identify songs quickly and accurately.
