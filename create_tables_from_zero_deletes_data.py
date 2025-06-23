@@ -6,15 +6,15 @@ conn = sqlite3.connect(DB_PATH)
 
 cursor = conn.cursor()
 
-# FOREIGN KEY
 cursor.execute("PRAGMA foreign_keys = ON;")
 
 drop_script = """
-DROP TABLE IF EXISTS listening_history;
-DROP TABLE IF EXISTS liked_songs;
-DROP TABLE IF EXISTS playlist_songs;
-DROP TABLE IF EXISTS playlist;
+DROP TABLE IF EXISTS ListeningHistory;
+DROP TABLE IF EXISTS LikedSongs;
+DROP TABLE IF EXISTS UserPlaylist_Song;
+DROP TABLE IF EXISTS UserPlaylist;
 DROP TABLE IF EXISTS BlendPlaylist;
+DROP TABLE IF EXISTS playlist;
 DROP TABLE IF EXISTS fingerprints;
 DROP TABLE IF EXISTS songs;
 DROP TABLE IF EXISTS album;
@@ -30,7 +30,8 @@ CREATE TABLE users (
     password VARCHAR(100),
     email VARCHAR(100),
     phone_number VARCHAR(20),
-    is_admin BOOLEAN
+    is_admin BOOLEAN,
+    UNIQUE(username)
 );
 
 CREATE TABLE artist (
