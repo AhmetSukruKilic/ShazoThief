@@ -23,28 +23,28 @@ ShazoThief uses audio fingerprinting to convert sound snippets into unique ident
 - **Audio Processing** – custom scripts for song fingerprinting & search  
 - **HTML/CSS** – templates for the user interface  
 
-## 📂 Project Structure
-  ShazoThief/
-  │
-  ├── app.py # Flask entry point
-  ├── load_audio.py # Handles audio loading
-  ├── search_audio.py # Matching algorithm for snippets
-  ├── upload_song.py # Song upload functionality
-  ├── song_methods.py # Song-related DB functions
-  ├── artist_methods.py # Artist-related DB functions
-  ├── playlist_methods.py # Playlist management
-  ├── blend_methods.py # Playlist blending logic
-  ├── user_methods.py # User login/playlist management
-  ├── volume_editor_methods.py # Adjusting audio volume
-  │
-  ├── create_tables_from_zero_deletes_data.py # Reset DB and create tables
-  ├── populate_table_*.py # Populate DB with initial data
-  │
-  ├── templates/ # HTML pages
-  ├── static/ # CSS, JS, images
-  │
-  ├── shazothief.db # SQLite database
-  └── song.txt # Sample song metadata
+    ## 📂 Project Structure
+      ShazoThief/
+      │
+      ├── app.py # Flask entry point
+      ├── load_audio.py # Handles audio loading
+      ├── search_audio.py # Matching algorithm for snippets
+      ├── upload_song.py # Song upload functionality
+      ├── song_methods.py # Song-related DB functions
+      ├── artist_methods.py # Artist-related DB functions
+      ├── playlist_methods.py # Playlist management
+      ├── blend_methods.py # Playlist blending logic
+      ├── user_methods.py # User login/playlist management
+      ├── volume_editor_methods.py # Adjusting audio volume
+      │
+      ├── create_tables_from_zero_deletes_data.py # Reset DB and create tables
+      ├── populate_table_*.py # Populate DB with initial data
+      │
+      ├── templates/ # HTML pages
+      ├── static/ # CSS, JS, images
+      │
+      ├── shazothief.db # SQLite database
+      └── song.txt # Sample song metadata
 
 ## 🚀 Setup & Installation
   1. **Clone the Repository**
@@ -55,9 +55,10 @@ ShazoThief uses audio fingerprinting to convert sound snippets into unique ident
     python create_tables_from_zero_deletes_data.py
   
     (Optional) seed with test data:
-      python populate_table_user.py
-      python populate_table_artist.py
-      python populate_table_song.py
+    python populate_table_user.py
+    python populate_table_artist.py
+    python populate_table_song.py
+
       
   3. **Run the Application**
     python app.py
